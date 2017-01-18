@@ -1,0 +1,56 @@
+Oxford Thunderbird Auto-configuration
+=====================================
+
+This repository provides oxtbac, a simple WSGI-compliant web application to serve configuration information to Thunderbird 3.1 clients.
+
+
+Requirements
+------------
+
+oxtbac has a modest set of requirements:
+
+ * IPy (for checking IP addresses against subnets)
+ * dnspython (for checking MX records)
+ * mod_wsgi (if serving with Apache HTTPD)
+
+These have the following packaged names:
+
+ * Debian: python-ipy python-dnspython libapache2-mod-wsgi
+ * Fedora: python-IPy python-dns mod_wsgi
+ * PyPI:   IPy dnspython
+
+
+Installing
+----------
+
+As root, run:
+
+$ python setup.py install
+
+With a bit of jiggery-pokery you should be able to not install it machine-wide. To do this, edit the oxtbac.(wsgi|cgi) script to add the path to the module's parent directory to the Python path. This can be done by adding the following two lines somewhere near the top:
+
+> import sys
+> sys.path.insert(0, '/path/to/this/directory/')
+
+Running a test server
+---------------------
+
+Simply run test.py as a Python script, and point your web browser at http://localhost:8000/?emailaddress=firstname.lastname@unit.ox.ac.uk.
+
+
+Serving using Apache and WSGI
+-----------------------------
+
+Include a modified version of example-apache.conf in your main Apache config or sites-enabled, and restart.
+
+To test the site locally, add an entry in /etc/hosts mapping 127.0.0.1 or ::1 to autoconfig.unit.ox.ac.uk.
+
+The WSGI application can also be included in an already-existing config by inserting the WSGIScriptAlias line.
+
+
+Serving using Apache and CGI
+----------------------------
+
+This isn't preferred, but should be entirely functional.
+
+Simply set the /cgi-bin/ as being a ScriptAlias on your VirtualHost, and Alias /mail/config-v1.1.xml to it.
