@@ -10,3 +10,5 @@ for background.
 Make this application available at
 http://autoconfig.[yourdomain].ox.ac.uk/mail/config-v1.1.xml or
 http://[yourdomain].ox.ac.uk/.well-known/autoconfig/mail/config-v1.1.xml.
+
+This software is offered without support in the hope that others within the collegiate University might find it useful.
